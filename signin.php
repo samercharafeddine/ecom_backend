@@ -23,7 +23,7 @@ if ($num_rows == 0) {
     echo json_encode($response);
 } else {
     if (password_verify($password, $hashed_password)) {
-        $key = "your_secret";
+        $key = "123";
         $payload_array = [];
         $payload_array["user_id"] = $id;
         $payload_array["name"] = $name;

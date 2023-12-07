@@ -1,10 +1,9 @@
 <?php
-header('Access-Controll-Allow-Origin:*');
-include("connection.php");
+include("./connection.php");
 
 $user_name = $_POST['user_name'];
 $password = $_POST['password'];
-$id_usertype = 0;
+$id_user_type = 0;
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 
@@ -12,7 +11,7 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 $query = $mysqli->prepare('insert into users(user_name,password,id_usertype,first_name,last_name) 
 values(?,?,?,?,?)');
-$query->bind_param('ssiss', $user_name, $hashed_password, $id_usertype, $first_name, $last_name);
+$query->bind_param('ssiss', $user_name, $hashed_password, $id_user_type, $first_name, $last_name);
 $query->execute();
 
 $response = [];
