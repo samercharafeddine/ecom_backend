@@ -1,0 +1,21 @@
+<?php
+include("./connection.php");
+include("./jwt_verification.php");
+
+$decoded=decodeJWT();
+if ($decoded->user_type_id == 1) {
+
+    $product_id = $_POST['product_id'] ?? '';
+    $seller_id = $_POST['seller_id'] ?? '';
+
+    $sqli = $mysqli->prepare("DELETE FROM products WHERE product_id = ? AND seller_id = ?");
+    $sqli->bind_param("ss", $product_id, $seller_id);
+    if ($sqli->execute()) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['error' => $sqli->error]);
+    }
+
+}
+else{ echo json_encode('error');}
+?>

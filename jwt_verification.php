@@ -1,5 +1,4 @@
 <?php
-header('Access-Controll-Allow-Origin:*');
 include("connection.php");
 require __DIR__ . '/vendor/autoload.php';
 
