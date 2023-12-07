@@ -1,20 +1,32 @@
 <?php
-include("./connection.php");
+include("connection.php");
 
-$user_name = $_POST['user_name'];
-$password = $_POST['password'];
-$id_user_type = 0;
-$first_name = $_POST['first_name'];
-$last_name = $_POST['last_name'];
+if (isset($_POST['email'], $_POST['password'], $_POST['user_name'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $user_name = $_POST['user_name'];
 
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-$query = $mysqli->prepare('insert into users(user_name,password,id_usertype,first_name,last_name) 
-values(?,?,?,?,?)');
-$query->bind_param('ssiss', $user_name, $hashed_password, $id_user_type, $first_name, $last_name);
-$query->execute();
+    $query = $mysqli->prepare('INSERT INTO users (email, password, user_name) VALUES (?, ?, ?)');
+    
+    if (!$query) {
+        die("Error in query preparation: " . $mysqli->error);
+    }
 
-$response = [];
-$response["status"] = "true";
+    $query->bind_param('sss', $email, $hashed_password, $user_name);
+    $query->execute();
 
-echo json_encode($response);
+    if ($query->error) {
+        die("Error in query execution: " . $query->error);
+    }
+
+    $response = ["status" => "true"];
+    echo json_encode($response);
+
+    $query->close();
+} else {
+    $response = ["status" => "false", "error" => "Missing required data"];
+    echo json_encode($response);
+}
+?>
