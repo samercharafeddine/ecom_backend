@@ -12,7 +12,7 @@ $seller_id = $_POST['seller_id'];
 
 $decoded=decodeJWT();
 
-if ($decoded->user_type_id == 1) {
+if ($decoded->id_user_type == 1) {
     $sqli = $mysqli->prepare("UPDATE products SET product_name = ?, product_description = ?, product_price = ? WHERE product_id = ? AND seller_id = ?");
     $sqli->bind_param("ssdpps", $name, $description, $price, $id_product, $seller_id);
     if ($sqli->execute()) {

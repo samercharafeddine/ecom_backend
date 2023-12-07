@@ -3,7 +3,7 @@ include("./connection.php");
 include("./jwt_verification.php");
 
 $decoded=decodeJWT();
-if ($decoded->user_type_id == 1) {
+if ($decoded->id_user_type == 1) {
 
     $id_product = $_POST['product_id'] ?? '';
     $seller_id = $_POST['seller_id'] ?? '';
