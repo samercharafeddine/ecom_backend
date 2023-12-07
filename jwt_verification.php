@@ -23,7 +23,7 @@ if (!$token) {
     echo json_encode(["error" => "unauthorized"]);
     exit();
 }
-$key = "your_secret";
+$key = "123";
 
 try{$decoded = JWT::decode($token, new Key($key, 'HS256'));
     return $decoded;
