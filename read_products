@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("../decode_jwt.php");
+include("../jwt_verification.php");
 
 $decoded=decodeJWT();
 
